@@ -16,7 +16,7 @@ args[post_status]: publish
 args[posts_per_page]: 6
 args[offset]: 0
 args[orderby]: date
-postOffset: 42
+postOffset: 12
 type: loadmore
 moduleInfo[post_source]: all
 moduleInfo[post_icon]: disable
@@ -29,16 +29,21 @@ data = {r.split(': ')[0]: r.split(': ')[1] for r in dataStr.split('\n')}
 
 # print(data)
 
-res = requests.post(url, headers=headers, data=data)
-# print(res.text)
-jsonData = json.loads(res.text)
-# print(type(jsonData))
-# print(jsonData)
-soup = BeautifulSoup(jsonData, 'html.parser')
-titles = soup.select('h3[class="post__title typescale-2"] a')
-for title in titles:
-    titleName = title.text
-    articleUrl = title['href']
-    print(titleName)
-    print(articleUrl)
-    print('==========')
+for p in range(0, 3):
+    res = requests.post(url, headers=headers, data=data)
+    # print(res.text)
+    jsonData = json.loads(res.text)
+    # print(type(jsonData))
+    # print(jsonData)
+    soup = BeautifulSoup(jsonData, 'html.parser')
+    titles = soup.select('h3[class="post__title typescale-2"] a')
+    for title in titles:
+        titleName = title.text
+        articleUrl = title['href']
+        print(titleName)
+        print(articleUrl)
+        print('==========')
+
+    data['postOffset'] += str(int(data['postOffset']) + 6)
+    print('++++++++++++++++++++++++++++')
+
