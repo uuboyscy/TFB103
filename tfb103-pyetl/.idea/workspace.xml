@@ -31,7 +31,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.tmp">
+  <component name="RunManager" selected="Python.08-pttMovieArticles01">
     <configuration name="05-pttMovie01" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="tfb103-pyetl" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -139,8 +139,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.tmp" />
         <item itemvalue="Python.08-pttMovieArticles01" />
+        <item itemvalue="Python.tmp" />
         <item itemvalue="Python.07-pttMovie03" />
         <item itemvalue="Python.06-pttMovie02" />
         <item itemvalue="Python.05-pttMovie01" />

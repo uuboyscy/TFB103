@@ -28,7 +28,16 @@ for i in range(0, 5):
             # Get article content
             resArticle = requests.get(articleUrl, headers=headers)
             soupArticle = BeautifulSoup(resArticle.text, 'html.parser')
-            articleContent = soupArticle.select('div[id="main-content"]')[0].text.split('※ 發信站')[0]
+            # articleContent = soupArticle.select('div[id="main-content"]')[0].text.split('※ 發信站')[0]
+            articleContentSoup = soupArticle.select('div[id="main-content"]')[0]
+            # for i in articleContentSoup.select('div'):
+            #     i.extract()
+            # for i in articleContentSoup.select('span'):
+            #     i.extract()
+            for tag in ['div', 'span']:
+                for i in articleContentSoup.select(tag):
+                    i.extract()
+            articleContent = articleContentSoup.text
             print(title)
             print(articleUrl)
             try:
