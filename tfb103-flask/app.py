@@ -1,8 +1,9 @@
-from flask import Flask, request
+from flask import Flask, request, jsonify, render_template
 # import test123
-import poker as p
+from extraUtil import series as s
+from extraUtil import poker as p
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='/static2', static_folder='./static2')
 
 @app.route('/')
 def index():
@@ -12,6 +13,11 @@ def index():
 def helloFlask(username):
     outStr = """<h1>Hello {} !</h1>"""
     return outStr.format(username)
+
+@app.route('/helloFlask2/<username>')
+def helloFlask2(username):
+    return render_template('helloFlask.html',
+                           username=username)
 
 @app.route('/hello_get')
 def hello_get():
@@ -23,6 +29,14 @@ def hello_get():
     if userage == None:
         return """Hello {} .""".format(username)
     return outStr.format(username, userage)
+
+@app.route('/hello_get2')
+def hello_get2():
+    username = request.args.get('username')
+    userage = request.args.get('userage')
+    return render_template('hello_get.html',
+                           username=username,
+                           userage=userage)
 
 @app.route('/add')
 def add():
@@ -47,9 +61,36 @@ def hello_post():
 
     return outStr
 
-@app.route('/poker', method=['GET', 'POST'])
+@app.route('/poker', methods=['GET', 'POST'])
 def poker():
-    return ''
+    outStr = """
+        <form action="/poker" method="POST">
+            <input name="player">
+            <button type="submit">SUBMIT</button>
+        </form>
+        """
+    method = request.method
+    if method == 'GET':
+        return outStr
+    if method == 'POST':
+        player = int(request.form.get('player'))
+        return jsonify(p.poker(player))
+
+@app.route('/poker2', methods=['GET', 'POST'])
+def poker2():
+    request_method = request.method
+    players = 0
+    cards = dict()
+    if request_method == 'POST':
+        players = int(request.form.get('players'))
+        cards = p.poker(players)
+    return render_template('poker.html', request_method=request_method,
+                                         cards=cards)
+
+@app.route('/getSeries/<n>')
+def getSeries(n):
+    return str(s.Func(int(n)))
+
 
 if __name__ == "__main__":
     app.run(debug=True, host='0.0.0.0', port=5000)

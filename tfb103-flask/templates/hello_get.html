@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    {% if username == None %}
+    <div>What's your name ?</div>
+    {% elif userage == None %}
+    <div>Hello {{ username }} .</div>
+    {% else %}
+    <div>Hello {{ username }}, you are {{ userage }} years old.</div>
+    {% endif %}
+</body>
+</html>
