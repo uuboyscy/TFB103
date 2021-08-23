@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify, render_template
 # import test123
 from extraUtil import series as s
 from extraUtil import poker as p
+import model
 
 app = Flask(__name__, static_url_path='/static2', static_folder='./static2')
 
@@ -90,6 +91,13 @@ def poker2():
 @app.route('/getSeries/<n>')
 def getSeries(n):
     return str(s.Func(int(n)))
+
+@app.route('/show_staff')
+def hello_google():
+    staff_data = model.getStaff()
+    column = ['ID', 'Name', 'DeptId', 'Age', 'Gender', 'Salary']
+    return render_template('show_staff.html', staff_data=staff_data,
+                                              column=column)
 
 
 if __name__ == "__main__":
